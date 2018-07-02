@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load markdown_filter %}
+
+{% block main %}
+    {% for p in post %}
+        <article class="article article-type-post">
+        <div class="article-meta">
+          <a class="article-date">
+            <time>{{ p.created|date:'Y-m-d H:i:s' }}</time>
+          </a>
+          <div class="article-category">
+            <a class="article-category-link" href="#" target="_blank">{{ p.category.cname }}</a>
+          </div>
+        </div>
+        <div class="article-inner">
+            <header class="article-header">
+                <h1 itemprop="name">
+                    <a class="article-title">{{ p.title }}</a>
+                </h1>
+            </header>
+            <div class="article-entry" itemprop="articleBody">
+                <h2>前言</h2>
+                {{ p.content|truncatechars:'20'|safe }}
+                <hr>
+                <br>
+                {{ p.content|md|safe }}
+
+
+            </div>
+        </div>
+        </article>
+
+    {% empty %}
+        <article class="article article-type-post">
+
+        </article>
+
+    {% endfor %}
+
+
+
+{% endblock main %}
